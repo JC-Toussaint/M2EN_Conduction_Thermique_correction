@@ -1,0 +1,11 @@
+Il faut que les bords à périodiser soient identifiés comme des régions linéiques
+car il y a une boucle sur les arêtes de bords.
+Pour chaque arête de bord dont le centre est f(x,y), on cherche l'arête de centre f'=(x+Tx, y)
+
+La fonction apply_periodic_BCs_along_x fonctionne correctement.
+Il supprime les arêtes de bords qui ont été périodisées et
+on insère de nouvelles arêtes (C, F) en indiquant dans la liste ncell = [own, ngh].
+
+Le BUG apparait dans le calcul de la matrice de diffusion, car les gradients
+font intervenir les distances entre les cellules own et ngh dont les abscisses en x
+ne tiennent pas compte qu'elles sont devenues proches.
