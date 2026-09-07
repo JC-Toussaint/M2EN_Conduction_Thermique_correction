@@ -1,0 +1,240 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\title{Intégrale de fonctions de Bessel}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Calcul de l'intégrale}
+
+On cherche à calculer l'intégrale suivante faisant intervenir des fonctions de Bessel du premier ordre $J_0$ :
+\[
+\int_0^1 x \cdot J_0(kx) \cdot J_0(k'x) \, dx
+\]
+
+\subsection*{Méthode}
+
+En utilisant les propriétés des fonctions de Bessel, on a effectivement :
+\[
+\frac{d}{dx}[x J_1(ax)] = x \frac{d}{dx}[J_1(ax)] + J_1(ax) = ax J_1'(ax) + J_1(ax)
+\]
+
+Avec la relation de récurrence $J_1'(ax) = J_0(ax) - \frac{J_1(ax)}{ax}$, on obtient :
+\[
+\frac{d}{dx}[x J_1(ax)] = ax J_0(ax) - J_1(ax) + J_1(ax) = ax J_0(ax)
+\]
+
+Donc :
+\[
+x J_0(ax) = \frac{1}{a} \frac{d}{dx}[x J_1(ax)]
+\]
+
+En appliquant cela à notre intégrale :
+\[
+\int_0^1 x J_0(kx) J_0(k'x) \, dx = \frac{1}{k} \int_0^1 J_0(k'x) \frac{d}{dx}[x J_1(kx)] \, dx
+\]
+
+Par intégration par parties :
+\[
+= \frac{1}{k} \left[ x J_1(kx) J_0(k'x) \right]_0^1 - \frac{1}{k} \int_0^1 x J_1(kx) \frac{d}{dx}[J_0(k'x)] \, dx
+\]
+
+En utilisant $\frac{d}{dx}J_0(k'x) = -k' J_1(k'x)$ :
+\[
+= \frac{1}{k} J_1(k) J_0(k') + \frac{k'}{k} \int_0^1 x J_1(kx) J_1(k'x) \, dx
+\]
+
+\section*{Raisonnement complet}
+
+Il faut faire une \textbf{deuxième intégration par parties} sur $\int_0^1 x J_1(kx) J_1(k'x) \, dx$ en utilisant :
+\[
+\frac{d}{dx}[x J_1(k'x)] = k'x J_0(k'x)
+\]
+
+Cela donne une équation avec l'intégrale originale des deux côtés, qu'on résout algébriquement.
+
+Alternativement, on utilise directement la \textbf{formule de Weber} :
+\[
+\boxed{\int_0^1 x J_\nu(kx) J_\nu(k'x) \, dx = \frac{k' J_\nu(k) J_{\nu+1}(k') - k J_{\nu+1}(k) J_\nu(k')}{k^2 - k'^2}}
+\]
+
+avec $\nu = 0$.
+
+\subsection*{Résultat final}
+
+En utilisant l'orthogonalité de Weber pour les fonctions de Bessel, on obtient :
+\[
+\boxed{\int_0^1 x J_0(kx) J_0(k'x) \, dx = \frac{k' J_0(k) J_1(k') - k J_1(k) J_0(k')}{k^2 - k'^2}}
+\]
+
+\section*{Passage à la limite $k \to k'$}
+
+La formule générale est :
+\[
+\int_0^1 x J_0(kx) J_0(k'x) \, dx = \frac{k' J_0(k) J_1(k') - k J_1(k) J_0(k')}{k^2 - k'^2}
+\]
+
+Pour $k = k'$, on a une forme indéterminée $\frac{0}{0}$.
+
+\section*{Application de la règle de L'Hôpital}
+
+On pose $k' = k + \epsilon$ et on prend la limite $\epsilon \to 0$ :
+\[
+\lim_{\epsilon \to 0} \frac{(k+\epsilon) J_0(k) J_1(k+\epsilon) - k J_1(k) J_0(k+\epsilon)}{(k+\epsilon)^2 - k^2}
+\]
+
+En appliquant L'Hôpital (dériver numérateur et dénominateur par rapport à $\epsilon$) :
+
+\textbf{Dénominateur :} $\frac{d}{d\epsilon}[(k+\epsilon)^2 - k^2] = 2(k+\epsilon) \to 2k$
+
+\textbf{Numérateur :} Après dérivation et simplification, on obtient à la limite :
+\[
+J_0(k) J_1(k) + k J_0(k) J_1'(k) - J_1(k) J_0(k) - k J_1(k) J_0'(k)
+\]
+
+En utilisant $J_0'(k) = -J_1(k)$ :
+\[
+= k[J_0(k) J_1'(k) + J_1^2(k)]
+\]
+
+Donc :
+\[
+\boxed{\int_0^1 x J_0^2(kx) \, dx = \frac{1}{2}\left[J_0^2(k) + J_1^2(k)\right]}
+\]
+
+\section*{Cas $k \neq k'$}
+
+Pour $k \neq k'$, on utilise directement la formule de Weber :
+\[
+\boxed{\int_0^1 x J_0(kx) J_0(k'x) \, dx = \frac{k' J_0(k) J_1(k') - k J_1(k) J_0(k')}{k^2 - k'^2}}
+\]
+
+\subsection*{Interprétation : Orthogonalité généralisée}
+
+Cette formule n'est \textbf{pas nulle} en général. Les fonctions de Bessel $J_0(kx)$ et $J_0(k'x)$ ne sont pas orthogonales sur $[0,1]$ avec la pondération $x$.
+
+\subsection*{Cas particulier : Orthogonalité vraie}
+
+L'orthogonalité se produit uniquement si $k$ et $k'$ sont choisis comme les \textbf{zéros de $J_0$} :
+
+Si $J_0(k) = 0$ et $J_0(k') = 0$ avec $k \neq k'$, alors :
+\[
+\int_0^1 x J_0(kx) J_0(k'x) \, dx = \frac{k' \cdot 0 \cdot J_1(k') - k \cdot J_1(k) \cdot 0}{k^2 - k'^2} = 0
+\]
+
+\section*{Calcul des coefficients $C_n$}
+
+\subsection*{Condition initiale et aux limites}
+
+On a :
+\[
+\theta^*(r^*, 0) = 1 = \sum_{n=1}^{\infty} C_n J_0(\zeta_n r^*)
+\]
+
+Condition aux limites :
+\[
+\frac{\partial \theta^*}{\partial r^*}\bigg|_{r^*=1} = -Bi \; \theta^*(1, 0)
+\]
+
+\subsection*{Détermination des $\zeta_n$}
+
+En appliquant la condition aux limites à $J_0(\zeta_n r^*)$ :
+\[
+\zeta_n J_0'(\zeta_n) = -Bi \; J_0(\zeta_n)
+\]
+
+En utilisant $J_0'(x) = -J_1(x)$ :
+\[
+\boxed{\zeta_n J_1(\zeta_n) = Bi \; J_0(\zeta_n)}
+\]
+
+Les $\zeta_n$ sont les racines positives de cette équation transcendante.
+
+\subsection*{Orthogonalité}
+
+On multiplie par $r^* J_0(\zeta_m r^*)$ et on intègre :
+\[
+\int_0^1 r^* J_0(\zeta_m r^*) \, dr^* = C_m \int_0^1 r^* J_0^2(\zeta_m r^*) \, dr^*
+\]
+
+\subsection*{Calcul de la norme}
+
+Pour cette condition aux limites, on a :
+\[
+\int_0^1 r^* J_0^2(\zeta_n r^*) \, dr^* = \frac{1}{2}\left[J_0^2(\zeta_n) + J_1^2(\zeta_n)\right]
+\]
+
+En utilisant $\zeta_n J_1(\zeta_n) = Bi \; J_0(\zeta_n)$ :
+\[
+= \frac{J_0^2(\zeta_n)}{2}\left[1 + \frac{Bi^2}{\zeta_n^2}\right] = \frac{J_0^2(\zeta_n)}{2} \cdot \frac{\zeta_n^2 + Bi^2}{\zeta_n^2}
+\]
+
+\subsection*{Calcul du numérateur}
+
+\[
+\int_0^1 r^* J_0(\zeta_n r^*) \, dr^* = \frac{J_1(\zeta_n)}{\zeta_n} = \frac{Bi \; J_0(\zeta_n)}{\zeta_n^2}
+\]
+
+\subsection*{Résultat final}
+
+\[
+C_n = \frac{\frac{Bi \; J_0(\zeta_n)}{\zeta_n^2}}{\frac{J_0^2(\zeta_n)}{2} \cdot \frac{\zeta_n^2 + Bi^2}{\zeta_n^2}}
+\]
+
+\[
+\boxed{C_n = \frac{2 \; Bi}{\zeta_n^2 J_0(\zeta_n)} \cdot \frac{\zeta_n^2}{\zeta_n^2 + Bi^2} = \frac{2 \; Bi}{(\zeta_n^2 + Bi^2) J_0(\zeta_n)}}
+\]
+
+\section*{Expression de $C_n$ sans $Bi$}
+
+\subsection*{Relation fondamentale}
+
+On a la relation :
+\[
+\zeta_n J_1(\zeta_n) = Bi \; J_0(\zeta_n)
+\]
+
+Donc :
+\[
+Bi = \frac{\zeta_n J_1(\zeta_n)}{J_0(\zeta_n)}
+\]
+
+\subsection*{Calcul de $\zeta_n^2 + Bi^2$}
+
+\[
+\zeta_n^2 + Bi^2 = \zeta_n^2 + \frac{\zeta_n^2 J_1^2(\zeta_n)}{J_0^2(\zeta_n)} = \frac{\zeta_n^2 J_0^2(\zeta_n) + \zeta_n^2 J_1^2(\zeta_n)}{J_0^2(\zeta_n)}
+\]
+\[
+= \frac{\zeta_n^2 [J_0^2(\zeta_n) + J_1^2(\zeta_n)]}{J_0^2(\zeta_n)}
+\]
+
+\subsection*{Expression finale de $C_n$}
+
+En substituant dans :
+\[
+C_n = \frac{2 \; Bi}{(\zeta_n^2 + Bi^2) J_0(\zeta_n)}
+\]
+
+On obtient :
+\[
+C_n = \frac{2 \cdot \frac{\zeta_n J_1(\zeta_n)}{J_0(\zeta_n)}}{\frac{\zeta_n^2 [J_0^2(\zeta_n) + J_1^2(\zeta_n)]}{J_0^2(\zeta_n)} \cdot J_0(\zeta_n)}
+\]
+
+\[
+= \frac{2 \zeta_n J_1(\zeta_n) J_0(\zeta_n)}{\zeta_n^2 [J_0^2(\zeta_n) + J_1^2(\zeta_n)]}
+\]
+
+\[
+\boxed{C_n = \frac{2 J_1(\zeta_n)}{\zeta_n [J_0^2(\zeta_n) + J_1^2(\zeta_n)]}}
+\]
+\end{document}

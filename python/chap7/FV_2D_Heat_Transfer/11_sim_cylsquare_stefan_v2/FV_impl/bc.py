@@ -50,15 +50,15 @@ def assign_BCs(cfd):
     
     # Dictionnaire pour les conditions de Robin : clé = nom de région, valeur = [scalaire, scalaire]
     cfd.robin_map = {}    
-    #cfd.robin_map['left']  = Struct(hcv=10, Ta=300)
-    #cfd.robin_map['right'] = Struct(hcv=10, Ta=300)
+    cfd.robin_map['left']  = Struct(hcv=10, Ta=300)
+    cfd.robin_map['right'] = Struct(hcv=10, Ta=300)
     cfd.robin_map['top']   = Struct(hcv=10, Ta=300)
     cfd.robin_map['down']  = Struct(hcv=10, Ta=300)
   
     # Dictionnaire pour les conditions de Stefan : clé = nom de région, valeur = [scalaire, scalaire]
     cfd.stefan_map = {}    
-    # cfd.stefan_map['left']  = Struct(hcv=10, Ta=300)
-    # cfd.stefan_map['right'] = Struct(hcv=10, Ta=300)
+    cfd.stefan_map['left']  = Struct(eps=0.8, Tsur=350)
+    cfd.stefan_map['right'] = Struct(eps=0.8, Tsur=350)
     cfd.stefan_map['top']   = Struct(eps=0.8, Tsur=350)
     cfd.stefan_map['down']  = Struct(eps=0.8, Tsur=350)
           

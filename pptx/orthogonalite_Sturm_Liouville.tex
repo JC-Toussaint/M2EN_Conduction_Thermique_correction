@@ -1,0 +1,215 @@
+\documentclass[10pt]{article}
+
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+
+\begin{document}
+
+\section*{Orthogonalité des fonctions propres}
+
+On considère le problème spectral
+
+\[
+X_n''(u)+\lambda_n^2X_n(u)=0
+\text{\quad sur l'intervalle \quad} u\in\left[-\frac12,\frac12\right],
+\]
+
+avec les conditions de Robin homogènes:
+
+\[
+X_n'\!\left(-\frac12\right)
+=
+Bi\,X_n\!\left(-\frac12\right)
+\text{\quad et \quad}
+X_n'\!\left(\frac12\right)
+=
+-Bi\,X_n\!\left(\frac12\right).
+\]
+
+Les valeurs propres $\lambda_n$ sont déterminées par:
+
+\[
+\tan\left(\frac{\lambda_n}{2}\right)
+=
+\frac{Bi}{\lambda_n}.
+\]
+
+Nous montrons que les fonctions propres associées à deux valeurs propres distinctes sont orthogonales.
+
+\subsection*{Étape 1 : Équations différentielles}
+
+Les fonctions propres $X_n$ et $X_p$ vérifient
+
+\[
+X_n''+\lambda_n^2X_n=0,
+\text{\quad et \quad}
+X_p''+\lambda_p^2X_p=0.
+\]
+
+On multiplie la première équation par $X_p$ et la seconde par $X_n$, puis on soustrait :
+
+\[
+X_pX_n''
+-
+X_nX_p''
++
+(\lambda_n^2-\lambda_p^2)X_nX_p
+=
+0.
+\]
+
+Or,
+
+\[
+X_pX_n''
+-
+X_nX_p''
+=
+\frac{d}{du}
+\left(
+X_pX_n'
+-
+X_nX_p'
+\right),
+\]
+
+d'où
+
+\[
+\frac{d}{du}
+\left(
+X_pX_n'
+-
+X_nX_p'
+\right)
++
+(\lambda_n^2-\lambda_p^2)X_nX_p
+=
+0.
+\]
+
+\subsection*{Étape 2 : Intégration}
+
+On intègre cette relation sur l'intervalle
+$\left[-\frac12,\frac12\right]$ :
+
+\[
+(\lambda_n^2-\lambda_p^2)
+\int_{-1/2}^{1/2}
+X_nX_p\,du
+=
+-
+\left[
+X_pX_n'
+-
+X_nX_p'
+\right]_{-1/2}^{1/2}.
+\]
+
+Il reste donc à évaluer le terme de bord.
+
+\subsection*{Étape 3 : Conditions de Robin}
+
+Au bord droit,
+
+\[
+X_n'
+=
+-Bi\,X_n,
+\qquad
+X_p'
+=
+-Bi\,X_p.
+\]
+
+Ainsi,
+
+\[
+X_pX_n'
+-
+X_nX_p'
+=
+-Bi\,X_pX_n
++
+Bi\,X_nX_p
+=
+0.
+\]
+
+Au bord gauche,
+
+\[
+X_n'
+=
+Bi\,X_n,
+\qquad
+X_p'
+=
+Bi\,X_p,
+\]
+
+d'où
+
+\[
+X_pX_n'
+-
+X_nX_p'
+=
+Bi\,X_pX_n
+-
+Bi\,X_nX_p
+=
+0.
+\]
+
+Les deux contributions au terme de bord sont donc nulles.
+
+On obtient alors
+
+\[
+(\lambda_n^2-\lambda_p^2)
+\int_{-1/2}^{1/2}
+X_nX_p\,du
+=
+0.
+\]
+
+Comme les valeurs propres sont distinctes,
+
+\[
+\lambda_n\neq\lambda_p,
+\]
+
+on conclut que
+
+\[
+\boxed{
+\int_{-1/2}^{1/2}
+X_n(u)X_p(u)\,du
+=
+0,
+\qquad
+n\neq p.
+}
+\]
+
+\section*{Conclusion}
+
+Les fonctions propres associées aux conditions de Robin homogènes forment une famille orthogonale pour le produit scalaire usuel
+
+\[
+\langle X_n,X_p\rangle
+=
+\int_{-1/2}^{1/2}
+X_n(u)X_p(u)\,du.
+\]
+
+Cette propriété est une conséquence directe du caractère auto-adjoint de l'opérateur de Sturm--Liouville
+
+\[
+L[X]=-X''.
+\]
+
+\end{document}

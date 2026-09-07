@@ -5,7 +5,7 @@ from scipy.sparse.linalg import spsolve
 
 # Paramètres
 L = 1
-N = 10
+N = 100
 K = 200
 H = 10
 

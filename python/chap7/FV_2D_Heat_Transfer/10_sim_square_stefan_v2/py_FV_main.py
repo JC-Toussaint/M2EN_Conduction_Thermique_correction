@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from FV_lib.struct import Struct
 from FV_lib.mesh import select_file, read_gmsh_msh, apply_periodic_BCs_along_x
-from FV_lib.post import cutline, plot_raw_sol, plot_smoothed_sol, plot_regions
+from FV_lib.post import cutline, plot_cells, plot_raw_sol, plot_smoothed_sol, plot_regions
 
 # Définit le répertoire courant comme celui où le script est exécuté
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -37,6 +37,9 @@ if __name__ == "__main__":
                 
         # Affiche le maillage et les régions surfaciques    
         plot_regions(cfd)
+        
+        # Affiche les volumes de controle    
+        plot_cells(cfd)
             
         # Définit les propriétés physiques par région
         cfd = assign_properties(cfd)
